@@ -1,15 +1,9 @@
-# 🚀 Welcome to your new awesome project!
+# Welcome to Form Observer
 
-This project has been created using **webpack scaffold**, you can now run
+This library aims to simplify and enhance the funcionality of the Forms in Vanilla JS.
 
-```
-npm run build
-```
+## What can it do?
 
-or
+## How does it works?
 
-```
-yarn build
-```
-
-to bundle your application
+## How can i use it?
