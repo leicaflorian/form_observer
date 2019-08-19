@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const WebpackAutoInject = require('webpack-auto-inject-version');
 
 /*
  * SplitChunksPlugin is enabled by default and replaced
@@ -28,7 +29,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    main: './src/index.js'
+    main: './testing.js'
   },
 
   output: {
@@ -37,8 +38,19 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
 
-  plugins: [new webpack.ProgressPlugin(),
-    //new HtmlWebpackPlugin()
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new WebpackAutoInject({
+      PACKAGE_JSON_INDENT: 2,
+      components: {
+        AutoIncreaseVersion: true,
+        InjectAsComment: false,
+        InjectByTag: false
+      },
+      AutoIncreaseVersion: {
+        runInWatchMode: true // it will increase version with every single build!
+      },
+    })
   ],
 
   module: {

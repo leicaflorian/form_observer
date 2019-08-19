@@ -1,3 +1,3 @@
-import { FormObserver } from './src/js/FormObserver';
+import { FormObserver } from './src/FormObserver';
 
-export { FormObserver };
+export { FormObserver }; 

@@ -1,13 +1,13 @@
 import "mdn-polyfills/NodeList.prototype.forEach";
 import "mdn-polyfills/CustomEvent";
+import "mdn-polyfills/Object.entries";
 
 import conditionalLog from "./ConsoleExtend";
 import { HTMLRadioGroup } from "./HTMLRadioGroup";
 
 /**
- * @typedef { HTMLRadioGroup | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement } HTMLFormControlElement
+ * @typedef { HTMLRadioGroup | HTMLInputElement | HTMLTextAreaElement } HTMLFormControlElement
  */
-
 
 /**
  * I'm not using Proxy due to compatibilty issues.
@@ -69,7 +69,7 @@ class FormControlsCollection {
 
     _controls.forEach(
       /**
-       * @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control
+       * @param {*} control
        */
       control => {
         const controlType = this._getControlType(control);
@@ -87,7 +87,7 @@ class FormControlsCollection {
           return;
         }
 
-        this._data['_' + name] = value ? value : this._data['_' + name];
+        this._data['_' + name] = value ? value : (this._data['_' + name] || '');
 
         // If the control is a Radio, then stores all the Controls with the same name
         // so the type changes and becomes Array instead of default
@@ -113,7 +113,7 @@ class FormControlsCollection {
   }
 
   /**
-   * @param {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} control 
+   * @param {HTMLFormControlElement} control 
    */
   _addEventListeners(control) {
     let eventName = 'input';
@@ -127,6 +127,7 @@ class FormControlsCollection {
         break;
     }
 
+    // @ts-ignore
     control.addEventListener(eventName,
       /**
        * @param {Event} e
@@ -219,6 +220,7 @@ class FormControlsCollection {
     let controlType = this._getControlType(control);
     let value;
 
+    // For selectControl behaves as normal
     switch (controlType) {
       case 'radio':
         value = control['checked'] ? control.value : false;
@@ -226,9 +228,6 @@ class FormControlsCollection {
         break;
       case 'checkbox':
         value = control['checked'] ? control.value : false;
-
-        break;
-      case 'select':
 
         break;
       default:
@@ -275,7 +274,11 @@ class FormControlsCollection {
 
         break;
       case 'select':
+        control.value = value;
 
+        // Updates the value stored for the select because if the user tries to set a value 
+        // that doesn't exist, the select will be resetted, so the value stored must be updated
+        this._data['_' + control["name"]] = control.value;
         break;
       default:
         control.value = value;
@@ -352,6 +355,28 @@ class FormControlsCollection {
     conditionalLog(this._settings.consoleVerbose, 'getControl(' + name + ')');
 
     return this._controls['_' + name];
+  }
+
+  /**
+   * Returns the data of the form in JSON format.
+   * If param 'returnObject' is true, returns an object instead of a string.
+   * 
+   * @param {Boolean?} returnObject 
+   * 
+   * @return string | Object
+   */
+  toJSON(returnObject = false) {
+    let json = {};
+
+    Object.entries(this._data).forEach(obj => {
+      json[obj[0].replace('_', '')] = obj[1]
+    })
+
+    if (returnObject) {
+      return json;
+    }
+
+    return JSON.stringify(json);
   }
 }
 

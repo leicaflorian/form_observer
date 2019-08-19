@@ -1,14 +1,11 @@
 import "mdn-polyfills/Object.assign";
-
-
-
-import { FormControlsCollection } from './libs/FormControlsCollection';
+import { FormControlsCollection } from './core/FormControlsCollection';
 
 class FormObserver {
   /**
    * @param {import('./FormObserver').FormObserverSettings} settings
    */
-  constructor(settings) {
+  constructor(settings, target = null, fillData = {}) {
     /**
      * @private
      * @type {import('./FormObserver').FormObserverSettings}
@@ -28,13 +25,17 @@ class FormObserver {
     if (settings) {
       Object.assign(this._settings, settings);
     }
+
+    if (target) {
+      this.init(target, fillData);
+    }
   }
 
   /**
    * Initialize the FormObserver on the specified HTMLElement.
    * 
    * @param {HTMLFormElement | HTMLElement } target
-   * @param {Object?} target
+   * @param {Object?} fillData
    * 
    * @return {FormControlsCollection}
    */
@@ -78,6 +79,23 @@ class FormObserver {
    */
   fillForm(target, fillData) {
     target.assign(fillData);
+  }
+
+  /**
+   * Returns the data of the form in JSON format.
+   * If param 'returnObject' is true, returns an object instead of a string.
+   * 
+   * @param {HTMLFormElement | HTMLElement} form 
+   * @param {Boolean?} returnObject
+   *  
+   * @return string | Object
+   */
+  toJSON(form, returnObject = false) {
+    if (form[this._settings.prefix]) {
+      return form[this._settings.prefix].toJSON(returnObject);
+    }
+
+    return {};
   }
 
   /**

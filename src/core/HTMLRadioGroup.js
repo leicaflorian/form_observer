@@ -34,6 +34,18 @@ class HTMLRadioGroup {
     }
   }
 
+
+  /**
+   * @param {string} type 
+   * @param {EventListenerOrEventListenerObject} listener 
+   * @param {boolean? | AddEventListenerOptions} options 
+   */
+  addEventListener(type, listener, options) {
+    this._list.forEach(radioControl => {
+      radioControl.addEventListener(type, listener, options);
+    })
+  }
+
   get checkedRadio() {
     let radioInput = this._list.filter(element => {
       return element.checked;

@@ -60,6 +60,12 @@ export class FormControlsCollection {
 	 * Method that returns the HTMLElement of the control with the specified Name.
 	 */
 	getControl(name: string): HTMLElement | null
+
+	/**
+	 * Returns the data of the form in JSON format.
+	 * If param 'returnObject' is true, returns an object instead of a string.
+	 */
+	toJSON(returnObject?: Boolean): string | Object
 }
 
 export class FormObserver {
@@ -80,6 +86,12 @@ export class FormObserver {
 	 * Each key of the object must correspond to the name of an existing control.
 	 */
 	fillForm(target: HTMLFormElement | HTMLElement, fillData: Object): void;
+
+	/**
+	 * Returns the data of the form in JSON format.
+	 * If param 'returnObject' is true, returns an object instead of a string.
+	 */
+	toJSON(form: HTMLFormElement | HTMLElement, returnObject?: Boolean): string | Object
 
 	get settings(): FormObserverSettings
 }
