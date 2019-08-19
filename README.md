@@ -61,23 +61,13 @@ form_observer.myInputName = 'new value' // sets the new value of the input
 	```js
 	const htmlForm = document.querySelector('#myForm');
 
-	// Settings are optional if you want to change the default behavior
-	const settings = {
-		...
-	};
-	// This data is optional so the FormObserver can be initialize without any data
-	const dataToFill = {
-		myInputName1 : 'value of input 1',
-		myInputName2 : 'value of input 2',
-	};
-
-	const myForm = new FormObserver(settings, htmlForm, dataToFill);
+	const myForm = new FormObserver(null, htmlForm);
 
 	// OR it can be declared and initialized in two different moments
 
 	const formObserver = new FormObserver(settings);
 
-	const myForm = formObserver.init(htmlForm, dataToFill);
+	const myForm = formObserver.init(htmlForm);
 	```
 - Once initialized, you can save a reference of the returned object *(in the above example is '**myForm**')* or you can access the property '**fo**' on the form which was used to initialize the library.
 	```js
@@ -91,4 +81,4 @@ form_observer.myInputName = 'new value' // sets the new value of the input
 	```
 
 ## Compatibility
-The library fully compatible with ALL browsers newer or equal to IE9
+The library is fully compatible with ALL browsers >= IE9
