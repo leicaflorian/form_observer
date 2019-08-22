@@ -10,8 +10,8 @@ import { HTMLRadioGroup } from "./HTMLRadioGroup";
  */
 
 /**
- * I'm not using Proxy due to compatibilty issues.
- * Infact this library is compatible even with IE9.
+ * I'm not using Proxy due to compatibility issues.
+ * In fact this library is compatible even with IE9.
  */
 class FormControlsCollection {
   /**
@@ -89,15 +89,15 @@ class FormControlsCollection {
 
         this._data['_' + name] = value ? value : (this._data['_' + name] || '');
 
-        // If the control is a Radio, then stores all the Controls with the same name
-        // so the type changes and becomes Array instead of default
+        // If the control is a Radio, instantiate a new HTMLRadioGroup element that
+        // will contain all the radios with the same name.
         if (controlType === 'radio') {
           /**
            * @type {HTMLRadioGroup}
            */
           let htmlRadioGroup = HTMLRadioGroup.parse(this._controls['_' + name]);
 
-          // If the key has already been added, concats the new control with the existing ones
+          // If the key has already been added, concat the new control with the existing ones
           if (htmlRadioGroup) {
             htmlRadioGroup.add(control)
           } else {
@@ -109,6 +109,7 @@ class FormControlsCollection {
 
         this._defineMethods(name);
         this._addEventListeners(control);
+        this._extendValueProperty(control, controlType, name);
       });
   }
 
@@ -167,6 +168,43 @@ class FormControlsCollection {
       ...this._createGetter(name),
       ...this._createSetter(name)
     })
+  }
+
+  /**
+   * Extends the original setter for 'value' property, so that each
+   * time a user calls the value setter, this will update also the local object
+   * that contains the control values.
+   * 
+   * 
+   * Technically this extension of the value setter is useless because the user should
+   * never call this setter manually. Instead should set the new value using the object
+   * provided by this library.
+   * But, to avoid compatibility problems with already written code, i added this extension.
+   *  
+   * 
+   * @param {HTMLElement} control 
+   * @param {string} controlType 
+   * @param {string} controlName 
+   */
+  _extendValueProperty(control, controlType, controlName) {
+    let self = this;
+
+    // Avoid changing the value setter for select, radio and checkbox
+    if (['select', 'radio', 'checkbox'].includes(controlType)) {
+      return;
+    }
+
+    // Creates an IIFE that stores the original setter for value property,
+    // so that this can be called once the personal setter has been executed.
+    (function(realHTMLInputElement) {
+      Object.defineProperty(control.__proto__, 'value', {
+        set: function(value) {
+          self._data[controlName] = value;
+
+          return realHTMLInputElement.set.call(this, value);
+        },
+      });
+    }(Object.getOwnPropertyDescriptor(control.__proto__, 'value')));
   }
 
   /**
