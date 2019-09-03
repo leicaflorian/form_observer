@@ -69,7 +69,7 @@ export class FormControlsCollection {
 }
 
 export class FormObserver {
-	constructor(settings?: FormObserverSettings): FormObserver
+	constructor(settings?: FormObserverSetting, target?: HTMLFormElement | HTMLElement, fillData?: Object): FormObserver
 
 	/**
 	 * Initialize the FormObserver on the specified HTMLElement.

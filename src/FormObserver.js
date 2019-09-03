@@ -27,7 +27,7 @@ class FormObserver {
     }
 
     if (target) {
-      this.init(target, fillData);
+      return this.init(target, fillData);
     }
   }
 
