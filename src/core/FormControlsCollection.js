@@ -197,14 +197,14 @@ class FormControlsCollection {
     // Creates an IIFE that stores the original setter for value property,
     // so that this can be called once the personal setter has been executed.
     (function(realHTMLInputElement) {
-      Object.defineProperty(control.__proto__, 'value', {
+      Object.defineProperty(Object.getPrototypeOf(control), 'value', {
         set: function(value) {
           self._data[controlName] = value;
 
           return realHTMLInputElement.set.call(this, value);
         },
       });
-    }(Object.getOwnPropertyDescriptor(control.__proto__, 'value')));
+    }(Object.getOwnPropertyDescriptor(Object.getPrototypeOf(control), 'value')));
   }
 
   /**
