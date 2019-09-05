@@ -81,28 +81,10 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/FormObserver.js");
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./index.js":
-/*!******************!*\
-  !*** ./index.js ***!
-  \******************/
-/*! exports provided: FormObserver */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _src_FormObserver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/FormObserver */ "./src/FormObserver.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormObserver", function() { return _src_FormObserver__WEBPACK_IMPORTED_MODULE_0__["FormObserver"]; });
-
-
-
- 
-
-/***/ }),
 
 /***/ "./node_modules/mdn-polyfills/CustomEvent.js":
 /*!***************************************************!*\
@@ -948,4 +930,4 @@ function () {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=form_objesrver.js.map
+//# sourceMappingURL=form_observer.js.map

@@ -30,8 +30,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    "form_objesrver": './index.js',
-    "form_objesrver.min": './index.js',
+    "form_observer": './src/FormObserver.js',
+    "form_observer.min": './src/FormObserver.js',
   },
 
   output: {
