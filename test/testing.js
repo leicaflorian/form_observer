@@ -1,5 +1,5 @@
 // @ts-nocheck
-import FormObserver from '../dist/form_observer';
+import FormObserver from '../src';
 
 window.addEventListener('DOMContentLoaded', e => {
   const formObserver = new FormObserver({
