@@ -1,6 +1,6 @@
 {
     "name": "form_observer",
-    "version": "1.0.77",
+    "version": "1.0.78",
     "description": "Library that aims to simplify and enhance the functionality of the Forms in Vanilla JS",
     "main": "src/index.js",
     "scripts": {
