@@ -1,11 +1,12 @@
 {
     "name": "form_observer",
-    "version": "1.0.71",
+    "version": "1.0.72",
     "description": "Library that aims to simplify and enhance the functionality of the Forms in Vanilla JS",
     "main": "index.js",
     "scripts": {
         "build": "webpack",
-        "start": "webpack-dev-server --env.patch"
+        "start": "webpack-dev-server --env.patch",
+        "deploy": "webpack --mode=production"
     },
     "author": "Leica Florian Robert",
     "license": "ISC",
@@ -18,24 +19,30 @@
     },
     "devDependencies": {
         "@babel/core": "^7.5.5",
+        "@babel/plugin-proposal-export-default-from": "^7.5.2",
+        "@babel/plugin-transform-spread": "^7.2.2",
         "@babel/preset-env": "^7.5.5",
         "babel-loader": "^8.0.5",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
+        "bootstrap": "^4.3.1",
         "css-loader": "^3.0.0",
         "eslint": "^6.1.0",
         "eslint-config-google": "^0.13.0",
         "html-webpack-plugin": "^3.2.0",
-        "node-sass": "^4.12.0",
-        "bootstrap": "^4.3.1",
         "lodash": "^4.17.15",
+        "mdn-polyfills": "^5.18.0",
+        "node-sass": "^4.12.0",
         "sass-loader": "^7.1.0",
         "style-loader": "^0.23.1",
+        "uglifyjs-webpack-plugin": "^2.2.0",
         "webpack": "^4.39.1",
         "webpack-auto-inject-version": "^1.2.2",
         "webpack-cli": "^3.3.6",
         "webpack-dev-server": "^3.8.0"
     },
-    "dependencies": {
-        "mdn-polyfills": "^5.18.0"
-    }
+    "dependencies": {},
+    "browserslist": [
+        "last 4 versions",
+        "ie 9-11"
+      ]
 }

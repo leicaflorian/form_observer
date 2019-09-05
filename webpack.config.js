@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const WebpackAutoInject = require('webpack-auto-inject-version');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /*
  * SplitChunksPlugin is enabled by default and replaced
@@ -29,12 +30,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    main: './testing.js'
+    "form_objesrver": './index.js',
+    "form_objesrver.min": './index.js',
   },
 
   output: {
-    //filename: '[name].[chunkhash].js',
-    filename: 'form_observer.js',
+    filename: '[name].js',
+    // filename: 'form_observer.js',
     path: path.resolve(__dirname, 'dist')
   },
 
@@ -57,19 +59,22 @@ module.exports = {
     rules: [{
       test: /.(js|jsx)$/,
       include: [path.resolve(__dirname, 'src')],
-      loader: 'babel-loader',
-
-      options: {
-        plugins: ['syntax-dynamic-import'],
-
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              modules: false
-            }
-          ]
-        ]
+      use: {
+        loader: 'babel-loader',
+        options: {
+          plugins: ['syntax-dynamic-import'],
+          presets: [
+            ["@babel/preset-env",
+              {
+                "modules": false
+              }
+            ]
+          ],
+          "plugins": [
+            ["@babel/plugin-proposal-export-default-from"],
+            ["@babel/plugin-transform-spread"]
+          ],
+        }
       }
     }]
   },
@@ -87,7 +92,11 @@ module.exports = {
       minChunks: 1,
       minSize: 30000,
       name: true
-    }
+    },
+     minimize: true,
+     minimizer: [new UglifyJsPlugin({
+       include: /\.min\.js$/,
+     })]
   },
 
   devServer: {
