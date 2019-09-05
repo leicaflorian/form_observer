@@ -106,4 +106,5 @@ class FormObserver {
   }
 }
 
-export { FormObserver }
+export default FormObserver;  
+export { FormObserver };  

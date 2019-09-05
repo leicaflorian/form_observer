@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { FormObserver } from './index';
+import FormObserver from '../dist/form_observer';
 
 window.addEventListener('DOMContentLoaded', e => {
   const formObserver = new FormObserver({
@@ -11,5 +11,4 @@ window.addEventListener('DOMContentLoaded', e => {
   formElements.assign({ mySelect: "alpha" })
 
   console.log(formElements.getControl("email"));
-
-});
+}); 

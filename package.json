@@ -1,12 +1,13 @@
 {
     "name": "form_observer",
-    "version": "1.0.73",
+    "version": "1.0.74",
     "description": "Library that aims to simplify and enhance the functionality of the Forms in Vanilla JS",
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
         "build": "webpack",
-        "start": "webpack-dev-server --env.patch",
-        "deploy": "webpack --mode=production"
+        "start": "webpack-dev-server --config test/webpack_test.config.js",
+        "deploy": "webpack --mode=production",
+        "test": "node -r esm index.js"
     },
     "author": "Leica Florian Robert",
     "license": "ISC",
@@ -40,7 +41,9 @@
         "webpack-cli": "^3.3.6",
         "webpack-dev-server": "^3.8.0"
     },
-    "dependencies": {},
+    "dependencies": {
+        "esm": "^3.2.25"
+    },
     "browserslist": [
         "last 4 versions",
         "ie 9-11"
