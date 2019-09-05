@@ -495,13 +495,13 @@ function () {
 
 
       (function (realHTMLInputElement) {
-        Object.defineProperty(control.__proto__, 'value', {
+        Object.defineProperty(Object.getPrototypeOf(control), 'value', {
           set: function set(value) {
             self._data[controlName] = value;
             return realHTMLInputElement.set.call(this, value);
           }
         });
-      })(Object.getOwnPropertyDescriptor(control.__proto__, 'value'));
+      })(Object.getOwnPropertyDescriptor(Object.getPrototypeOf(control), 'value'));
     }
     /**
      * @private
